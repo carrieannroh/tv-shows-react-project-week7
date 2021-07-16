@@ -3,8 +3,8 @@ import episodes from "./episodes.json";
 import { useState, useEffect } from "react";
 
 
-console.log(`Imported ${episodes.length} episode(s)`);
-console.log(`First episode's name is ${episodes[0].name}`);
+// console.log(`Imported ${episodes.length} episode(s)`);
+// console.log(`First episode's name is ${episodes[0].name}`);
 
 interface IEpisode {
   id: number;
@@ -28,6 +28,7 @@ interface IEpisode {
 function App(): JSX.Element {
   const [episode, setEpisode] = useState<IEpisode>(episodes[0]);
   //const [episodeArray, setEpisodeArray] = useState<IEpisode[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("")
 
 
   const handleGetEpisode = async () => {
@@ -43,34 +44,55 @@ function App(): JSX.Element {
     
   // };
 
-function editedSummary() {
-  for (const eachEpisode of episodes) {
-    const newSummary = eachEpisode.summary;
+function editedSummary(summaryInfo: string): string {
+  // for (const currentEpisode of episodes) {
+  //   const newSummary = currentEpisode.summary;
     //console.log(newSummary.slice(3, -4))
-    return newSummary.slice(3, -4)
+    return summaryInfo.slice(3, -4)
   }
-}
- 
+
+  function paddedNums(nums: number): string {
+   const stringToNum = nums.toString();
+   const string = stringToNum.padStart(2,'0');
+   return string
+
+  }
+
+//this is only looking at the first episode of the summary. function should accept a parameter
+//then function should do an action to it, don't need loops
+// revise scope, look at the scope level you're at and see if it can be used as an argument, also is it necessary to use it as an argument
+ // worth checking you know where all your values are going/being passed into
 
 
 
   return (
   <>
   {/* <h1>{greet("World")}</h1>; */}
-    <section>
-     {episodes.map((x) => //so bcz you've imported episodes which is already an array, you can just map over that file
-     <div key={x.id}>
-       {x.name} - S{x.season}EP{x.number}
+  <form>
+    <input type="text" placeholder="Search episodes" onChange={event => {setSearchTerm(event.target.value); console.log(event)}}/>
+  </form>
+    <section> 
+      {/* //when you're filtering the array you're not changing the values/elements in array, just returning back a new array after its been filtered */}
+     {episodes.filter((val) => { //need to give it a boolean, we give the filter a boolean from the callback function 
+       if (searchTerm === "") {
+       return val
+     } else if ((val.name.toLowerCase().includes(searchTerm.toLowerCase())) || (val.summary.toLowerCase().includes(searchTerm.toLowerCase()))) {
+       return val //look up truthy statements, they are anything that's not null/undefined/void
+     }
+    }).map((x) => 
+     <div className="episodess" key={x.id}>  
+       {x.name} - S{paddedNums(x.season)}EP{paddedNums(x.number)}
        <div>
         <img src={x.image.medium}/>
         </div>
-        <div>{editedSummary()} </div>
-        
+        <div>{editedSummary(x.summary)} </div>
+        {/* so here we're passing x.summary in as an argument for editedSummary. This way it only edits info the map returns,  */}
         </div> )}
       
 
     </section> 
   </>
+
   );
 }
 
