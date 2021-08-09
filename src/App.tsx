@@ -55,7 +55,6 @@ function editedSummary(summaryInfo: string): string {
    const stringToNum = nums.toString();
    const string = stringToNum.padStart(2,'0');
    return string
-
   }
 
 //this is only looking at the first episode of the summary. function should accept a parameter
@@ -71,6 +70,9 @@ function editedSummary(summaryInfo: string): string {
   <form>
     <input type="text" placeholder="Search episodes" onChange={event => {setSearchTerm(event.target.value); console.log(event)}}/>
   </form>
+  <select>
+    <option>Here is an option</option>
+  </select>
     <section> 
       {/* //when you're filtering the array you're not changing the values/elements in array, just returning back a new array after its been filtered */}
      {episodes.filter((val) => { //need to give it a boolean, we give the filter a boolean from the callback function 
