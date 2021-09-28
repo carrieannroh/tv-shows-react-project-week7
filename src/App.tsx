@@ -87,7 +87,7 @@ function editedSummary(summaryInfo: string): string {
        <div>
         <img src={x.image.medium}/>
         </div>
-        <div>{editedSummary(x.summary)} </div>
+        <div className="summarystyle">{editedSummary(x.summary)} </div>
         {/* so here we're passing x.summary in as an argument for editedSummary. This way it only edits info the map returns,  */}
         </div> )}
       

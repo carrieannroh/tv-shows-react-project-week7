@@ -1,9 +1,22 @@
 .episodess {
     margin: 10px;
+    
     /* padding-top: 50px;
     padding-right: 30px;
     padding-bottom: 50px;
     padding-left: 80px; */
+    
+}
+
+.summarystyle{
+   
 }
 
 
+/* .card-list {
+    width: 85vw;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+  } */
